@@ -8,7 +8,7 @@ import Presenter
 import Utils
 
 __author__ = 'Daemon1993'
-#可以成功了吧????!!!!
+#可以成功了吧????!!!!说得对
 class HomeHanlder(tornado.web.RequestHandler):
     def get(self):
         self.render("html/demo.html")
