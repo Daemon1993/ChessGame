@@ -58,7 +58,6 @@ static_path = os.path.join(os.path.dirname(__file__), "static")    #这里增加
 
 if __name__ == '__main__':
     Presenter.initData()
-
     app = initData()
     app.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
