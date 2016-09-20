@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script>
+    var ws = new WebSocket("ws://112.74.207.72:8888/soc");
+    //var ws = new WebSocket("ws://localhost:8888/soc");
+    ws.onopen = function () {
+        ws.send("Daemon");
+    };
+    ws.onmessage = function (event) {
+        if (event.data.indexOf('puke') >= 0) {
+            document.getElementById('message1').innerHTML = event.data;
+            return;
+        }
+        else if (event.data.indexOf('win') >= 0) {
+            document.getElementById('message2').innerHTML = event.data;
+            return;
+        }
+        document.getElementById('message').innerHTML = event.data;
+    };
+
+    function createRoom() {
+        ws.send("createRoom");
+    }
+    function getPuke() {
+        ws.send("getPuke");
+    }
+
+</script>
+<body>
+<p id='message'></p>
+<p id='message1'>puke</p>
+<p id='message2'>puke result</p>
+
+<!--<button onclick="createRoom()">创建房间</button>-->
+<!--<button onclick="getPuke()">发牌</button>-->
+</body>
+</html>
