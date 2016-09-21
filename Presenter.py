@@ -38,38 +38,41 @@ def disTributePuke(room):
     win_user = room.showPuke()
 
     for user in room.users:
-        if win_user.userId == user.userId:
-            win_user.userId.write_message('win 你赢了')
+        if win_user.userLink == user.userLink:
+            win_user.userLink.write_message('win 你赢了')
         else:
-            user.userId.write_message('win 你输了 赢家{0}'.format(win_user.puke))
+            user.userLink.write_message('win 你输了 赢家{0}'.format(win_user.puke))
 
 
 # 用户集合管理
 class __UserManager():
+    # dict link-user
     users = {}
 
-    def addUser(self, userId, userName):
-        user = self.users.get(userId)
+    def addUser(self, userLink, userName):
+        user = self.users.get(userLink)
         if user is not None:
             print('用户已经存在')
         else:
-            user = ClassBean.newUser(userId, userName)
+            user = ClassBean.newUser(userLink, userName)
 
-        self.users[userId] = user
+        self.users[userLink] = user
         return user
-
-    def getUser(self, userId):
-        return self.users.get(userId)
 
     def getUserSize(self):
         return len(self.users)
 
-    def removeUser(self, userId):
+    # 用户下线
+    def removeUser(self, userLink):
+        user=self.users[userLink]
+        print("掉线 {0}".format(user))
 
         # 删除当前账号的房间的当前用户
-        roomManager.removeUserById(userId)
+        roomManager.removeUserById(user)
 
-        del self.users[userId]
+        del self.users[userLink]
+
+        print(len(self.users))
 
 
 userManager = __UserManager()
@@ -94,15 +97,15 @@ class __RoomManager(object):
         self.managers[tag] = room
         return room
 
-    def removeUserById(self, userId):
+    def removeUserById(self, user):
         # print('delete {0}'.format(userId))
+        if user is None:
+            return
         for room in self.managers.values():
-            for user in room.users:
-                # print('user id {0}'.format(user.userId))
-                if user.userId == userId:
-                    room.users.remove(user)
-                    # print('delte later {0}'.format(room.users))
-                    return
+            if user in room.users:
+                room.users.remove(user)
+                # print('delte later {0}'.format(room.users))
+                return
 
 
 # 唯一 房间管理类
