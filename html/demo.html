@@ -5,13 +5,13 @@
     <title></title>
 </head>
 <script>
-    var ws = new WebSocket("ws://112.74.207.72:8888/soc");
-    //var ws = new WebSocket("ws://localhost:8888/soc");
+    //var ws = new WebSocket("ws://112.74.207.72:8888/soc");
+    var ws = new WebSocket("ws://localhost:8888/soc");
     ws.onopen = function () {
         ws.send("Daemon");
     };
     ws.onmessage = function (event) {
-        if (event.data.indexOf('puke') >= 0) {
+        if (event.data.indexOf('你的牌') >= 0) {
             document.getElementById('message1').innerHTML = event.data;
             return;
         }
@@ -19,6 +19,7 @@
             document.getElementById('message2').innerHTML = event.data;
             return;
         }
+
         document.getElementById('message').innerHTML = event.data;
     };
 

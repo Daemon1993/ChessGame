@@ -23,7 +23,8 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
         # 先默认全部进入第一个房间
         room1 = Presenter.roomManager.managers.get('room1')
-        user.go2Room(room1)
+
+        Presenter.joinRoom(user,room1)
 
         count = room1.getUserSize()
 
@@ -56,7 +57,7 @@ def initData():
 
 
 if __name__ == '__main__':
-    Presenter.initData()
+    Presenter.initData(10)
     app = initData()
     app.listen(8888)
     tornado.ioloop.IOLoop.instance().start()

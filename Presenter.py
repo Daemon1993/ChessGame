@@ -1,6 +1,11 @@
+import Utils
+import model.ResponseData
+
 __author__ = 'Daemon1993'
 
 import ClassBean
+import json
+
 
 '''
 主持人 逻辑控制者
@@ -8,9 +13,9 @@ import ClassBean
 pukes = []
 
 
-def initData():
+def initData(size):
     # 初始化 房间数
-    for index in range(1, 2):
+    for index in range(1, size+1):
         roomTag = "room" + str(index)
         roomManager.newRoom(roomTag)
 
@@ -113,6 +118,29 @@ class __RoomManager(object):
 roomManager = __RoomManager()
 
 
+
 #连接用户反馈信息
 def responseData(user, ws):
     ws.write_message('welcome {0} chessGame ok'.format(user.userName))
+
+#更新房间信息
+def updateRoomMsg(room):
+    user_count=len(room.users)
+    data= model.ResponseData.RoomData.Data(1,1,user_count,4,5,10,123,100,0)
+    roomData= model.ResponseData.RoomData(10,1,data)
+
+    msg=json.dumps(roomData,ensure_ascii=False,default=Utils.serialize_instance)
+    #便利发送user房间信息
+    for user in room.users:
+        senRoomMsg2User(msg,user)
+
+
+#发送信息给user
+def senRoomMsg2User(json,user):
+    user.userLink.write_message(json)
+
+
+def joinRoom(user, room1):
+    user.go2Room(room1)
+    updateRoomMsg(room1)
+
