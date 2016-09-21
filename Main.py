@@ -18,7 +18,8 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
         print("WebSocket ip link {0}".format(self.request.remote_ip))
         user = Presenter.userManager.addUser(self,'游客' + str(Presenter.userManager.getUserSize()))
-        Presenter.addLinkes(user, self)
+
+        Presenter.responseData(user, self)
 
         # 先默认全部进入第一个房间
         room1 = Presenter.roomManager.managers.get('room1')

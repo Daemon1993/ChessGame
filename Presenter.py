@@ -112,9 +112,7 @@ class __RoomManager(object):
 
 roomManager = __RoomManager()
 
-# 管理所有连接
-links = {}
 
-
-def addLinkes(user, ws):
+#连接用户反馈信息
+def responseData(user, ws):
     ws.write_message('welcome {0} chessGame ok'.format(user.userName))
