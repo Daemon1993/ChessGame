@@ -54,8 +54,6 @@ def initData():
     ])
 
 
-static_path = os.path.join(os.path.dirname(__file__), "static")    #这里增加设置了静态路径
-
 if __name__ == '__main__':
     Presenter.initData()
     app = initData()
