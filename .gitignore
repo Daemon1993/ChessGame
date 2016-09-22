@@ -89,3 +89,5 @@ ENV/
 .ropeproject
 
 .idea/
+ClientProject/GameHall/local
+ClientProject/GameHall/temp
