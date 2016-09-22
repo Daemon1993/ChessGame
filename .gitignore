@@ -89,3 +89,6 @@ ENV/
 .ropeproject
 
 .idea/
+temp/
+node_modules/
+GameHall/
