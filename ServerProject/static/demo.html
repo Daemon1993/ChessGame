@@ -5,8 +5,8 @@
     <title></title>
 </head>
 <script>
-    //var ws = new WebSocket("ws://112.74.207.72:8888/soc");
-    var ws = new WebSocket("ws://localhost:8888/index");
+    var ws = new WebSocket("ws://112.74.207.72:8888/index");
+    //var ws = new WebSocket("ws://localhost:8888/index");
     ws.onopen = function () {
         ws.send("Daemon");
     };
