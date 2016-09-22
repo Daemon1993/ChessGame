@@ -8,7 +8,7 @@ import Presenter
 
 
 __author__ = 'Daemon1993'
-#再试一把,终于能正常通过github客户端提交成年了 我靠!!!!!
+#再试一把,终于能正常通过github客户端提交成年了 我靠!!!!!!!!
 class HomeHanlder(tornado.web.RequestHandler):
     def get(self):
         self.render("html/demo.html")
