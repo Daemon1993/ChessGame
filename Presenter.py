@@ -144,3 +144,8 @@ def joinRoom(user, room1):
     user.go2Room(room1)
     updateRoomMsg(room1)
 
+
+
+
+
+
