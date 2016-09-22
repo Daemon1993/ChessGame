@@ -1,5 +1,7 @@
-import Presenter
-import Utils
+from ServerProject import Utils
+from ServerProject.model import ResponseData
+
+import json
 
 __author__ = 'Daemon1993'
 
@@ -57,6 +59,7 @@ class __Room():
     tag = ""
     users = []
 
+
     def __init__(self, tag):
         self.tag = tag
         self.users = []
@@ -81,7 +84,7 @@ class __Room():
     def showPuke(self):
         max = 0
         win_user = None
-        pukes = Presenter.getPuke()
+        pukes = self.getPuke()
 
         for user in self.users:
             if user is None:
@@ -97,6 +100,37 @@ class __Room():
 
         return win_user
 
+    # 获取扑克牌 每次新的
+    def getPuke(self):
+        pukes = []
+        # 16进制 52张牌
+        pukes.clear()
+        for index in range(1, 14):
+            a = index + 16
+            b = index + 32
+            c = index + 48
+            d = index + 64
+            pukes.append(hex(a))
+            pukes.append(hex(b))
+            pukes.append(hex(c))
+            pukes.append(hex(d))
+        return pukes
+
+    def updateRoom(self):
+
+        user_count = len(self.users)
+        data = ResponseData.RoomData.Data(1, 1, user_count, 4, 5, 10, 123, 100, 0)
+        roomData = ResponseData.RoomData(10, 1, data)
+
+        msg = json.dumps(roomData, ensure_ascii=False, default=Utils.serialize_instance)
+
+        # 便利发送user房间信息
+        for user in self.users:
+            self.senRoomMsg2User(msg, user)
+
+
+    def senRoomMsg2User(self,json, user):
+        user.userLink.write_message(json)
 
 def newRoom(tag):
     return __Room(tag)

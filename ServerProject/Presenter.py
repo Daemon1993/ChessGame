@@ -1,16 +1,14 @@
-import Utils
-import model.ResponseData
+from ServerProject import Utils, ClassBean
 
 __author__ = 'Daemon1993'
 
-import ClassBean
 import json
 
 
 '''
 主持人 逻辑控制者
 '''
-pukes = []
+
 
 
 def initData(size):
@@ -22,20 +20,7 @@ def initData(size):
     print('all room {0}'.format(len(roomManager.managers)))
 
 
-# 获取扑克牌 每次新的
-def getPuke():
-    # 16进制 52张牌
-    pukes.clear()
-    for index in range(1, 14):
-        a = index + 16
-        b = index + 32
-        c = index + 48
-        d = index + 64
-        pukes.append(hex(a))
-        pukes.append(hex(b))
-        pukes.append(hex(c))
-        pukes.append(hex(d))
-    return pukes
+
 
 
 # 开始 puke
@@ -125,19 +110,7 @@ def responseData(user, ws):
 
 #更新房间信息
 def updateRoomMsg(room):
-    user_count=len(room.users)
-    data= model.ResponseData.RoomData.Data(1,1,user_count,4,5,10,123,100,0)
-    roomData= model.ResponseData.RoomData(10,1,data)
-
-    msg=json.dumps(roomData,ensure_ascii=False,default=Utils.serialize_instance)
-    #便利发送user房间信息
-    for user in room.users:
-        senRoomMsg2User(msg,user)
-
-
-#发送信息给user
-def senRoomMsg2User(json,user):
-    user.userLink.write_message(json)
+    room.updateRoom()
 
 
 def joinRoom(user, room1):
