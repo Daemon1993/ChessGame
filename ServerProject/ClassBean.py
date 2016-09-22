@@ -20,6 +20,8 @@ class __User():
     #扑克牌具体数
     puke = ""
     userID=""
+    #是否坐着
+    isDown=None
 
     def __repr__(self):
         return 'userID :{0}'.format(self.userName)
@@ -47,6 +49,7 @@ class __User():
     # 离开房间
     def exitRoom(self):
         self.roomId = ""
+        self.isDown=None
 
 def newUser(userLink, userName):
     user = __User(userLink, userName)
@@ -86,7 +89,7 @@ class __Room():
         pukes = self.getPuke()
 
         for user in self.users:
-            if user is None:
+            if user is None or user.isDown is None:
                 continue
             puke = Utils.getRandomPuke(pukes)
             user.puke = puke
