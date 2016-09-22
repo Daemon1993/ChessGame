@@ -13,11 +13,13 @@ def action2():
 
 
 def parseAction(json_msg):
-    msg=json.loads(json_msg)
-    isOk=isinstance(msg,dict)
-    if isOk == False:
+
+    try:
+        msg=json.loads(json_msg)
+    except Exception as e:
         print('接收数据转换json失败')
         return None
+
 
     code=msg['code']
     if code==1:

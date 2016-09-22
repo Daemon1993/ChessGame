@@ -1,14 +1,14 @@
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import os
 
 from ServerProject import Presenter,DataParse
 
 __author__ = 'Daemon1993'
 #再试一把,终于能正常通过github客户端提交成年了 我靠!!!!!
-class HomeHanlder(tornado.web.RequestHandler):
-    def get(self):
-        self.render("html/demo.html")
+class HomeHanlder(tornado.web.StaticFileHandler):
+    pass
 
 #获取协议 接口
 class GetProtocolHanlder(tornado.web.RequestHandler):
@@ -52,21 +52,42 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
     def check_origin(self, origin):
         return True
 
+class IndexHandler(tornado.web.RequestHandler):
+
+    def get(self):
+
+        self.render("static/demo.html")
+
+
+
+
+class HomeHandler(tornado.web.RequestHandler):
+
+    def get(self):
+
+        self.render("GameHall/build/web-desktop/index.html")
+
+
+
 
 def initData():
     return tornado.web.Application([
         ('/index', ChessGameSocket),
-        ('/', HomeHanlder),
         ('/getProtocol', GetProtocolHanlder),
-    ])
+        ("/home", HomeHandler),
+        ("/index1", IndexHandler),
 
+    ])
 
 
 
 if __name__ == '__main__':
 
+    print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
+
 
     Presenter.initData(10)
     app = initData()
+
     app.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
