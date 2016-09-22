@@ -132,6 +132,7 @@ class __Room():
     def senRoomMsg2User(self,json, user):
         user.userLink.write_message(json)
 
+#房间加上Tag
 def newRoom(tag):
     return __Room(tag)
 
