@@ -37,14 +37,14 @@ class __User():
             return False
         self.roomId = room.tag
         room.addUser(self)
-        print('user {0} join room {1}'.format(user.userName.room.tag))
+
+        print('user {0} join room {1}'.format(self.userName,room.tag))
         self.userLink.write_message('欢迎来到房间 {0}'.format(room.tag))
         return True
 
     # 离开房间
     def exitRoom(self):
         self.roomId = ""
-dd
 
 def newUser(userLink, userName):
     user = __User(userLink, userName)
