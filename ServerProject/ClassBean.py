@@ -59,7 +59,6 @@ class __Room():
     tag = ""
     users = []
 
-
     def __init__(self, tag):
         self.tag = tag
         self.users = []
@@ -123,6 +122,9 @@ class __Room():
         roomData = ResponseData.RoomData(10, 1, data)
 
         msg = json.dumps(roomData, ensure_ascii=False, default=Utils.serialize_instance)
+
+        # ddd=json.loads(msg)
+        # print(ddd['data'])
 
         # 便利发送user房间信息
         for user in self.users:

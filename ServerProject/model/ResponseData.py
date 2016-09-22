@@ -1,5 +1,6 @@
 __author__ = 'Daemon1993'
 
+#房间信息
 class RoomData:
     roomType=None
     filed=None
