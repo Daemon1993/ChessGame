@@ -9,7 +9,6 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
 develop-eggs/
 dist/
 downloads/
@@ -17,6 +16,7 @@ eggs/
 .eggs/
 lib/
 lib64/
+#build/
 parts/
 sdist/
 var/
@@ -89,5 +89,3 @@ ENV/
 .ropeproject
 
 .idea/
-ClientProject/GameHall/local
-ClientProject/GameHall/temp
