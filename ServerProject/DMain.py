@@ -35,12 +35,12 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
         DataParse.parseAction(message)
 
-        if message == "createRoom":
-            # 获取 房间
-            room = Presenter.roomManager.getRoomByTag(Presenter.roomManager, message)
-            # puke=ClassManager.getPuke()
-            self.write_message('create Room {0} OK users {1}  '.format(room.tag, Presenter.userManager.getUserSize()))
-            return
+        # if message == "createRoom":
+        #     # 获取 房间
+        #     room = Presenter.roomManager.getRoomByTag(Presenter.roomManager, message)
+        #     # puke=ClassManager.getPuke()
+        #     self.write_message('create Room {0} OK users {1}  '.format(room.tag, Presenter.userManager.getUserSize()))
+        #     return
 
 
 

@@ -1,5 +1,6 @@
-from ServerProject import Utils
+from ServerProject import Utils,DataParse
 from ServerProject.model import ResponseData
+
 
 import json
 
@@ -9,7 +10,6 @@ __author__ = 'Daemon1993'
 面向对象
 每个功能 一个类
 '''
-
 
 # 用户类 里面有roomID
 class __User():
@@ -125,7 +125,8 @@ class __Room():
         data = ResponseData.RoomData.Data(1, 1, user_count, 4, 5, 10, 123, 100, 0)
         roomData = ResponseData.RoomData(10, 1, data)
 
-        msg = json.dumps(roomData, ensure_ascii=False, default=Utils.serialize_instance)
+        msg=DataParse.parseSendJson(roomData)
+
 
         # ddd=json.loads(msg)
         # print(ddd['data'])

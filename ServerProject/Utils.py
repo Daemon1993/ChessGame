@@ -11,7 +11,3 @@ def getRandomPuke(pukes):
     pukes.remove(puke)
     return puke
 
-def serialize_instance(obj):
-    d = {}
-    d.update(vars(obj))
-    return d
