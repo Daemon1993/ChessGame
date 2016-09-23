@@ -80,14 +80,12 @@ def initData():
     ])
 
 
-
-if __name__ == '__main__':
-
-    print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
-
+def beginBmob():
+    print(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
     Presenter.initData(10)
     app = initData()
 
     app.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
+
