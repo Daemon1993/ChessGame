@@ -12,6 +12,7 @@ def action2():
     pass
 
 
+#解析传来数据
 def parseAction(json_msg):
 
     try:
@@ -19,7 +20,6 @@ def parseAction(json_msg):
     except Exception as e:
         print('接收数据转换json失败')
         return None
-
 
     code=msg['code']
     if code==1:
@@ -29,3 +29,14 @@ def parseAction(json_msg):
         action2()
         return
 
+
+#生成json 传给客户端
+def parseSendJson(obj):
+    msg = json.dumps(obj, ensure_ascii=False, default=serialize_instance)
+    return msg
+
+
+def serialize_instance(obj):
+    d = {}
+    d.update(vars(obj))
+    return d
