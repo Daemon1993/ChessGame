@@ -26,12 +26,12 @@ def initData(size):
 # 开始 puke
 def disTributePuke(room):
     win_user = room.showPuke()
-
-    for user in room.users:
-        if win_user.userLink == user.userLink:
-            win_user.userLink.write_message('win 你赢了')
-        else:
-            user.userLink.write_message('win 你输了 赢家{0}'.format(win_user.puke))
+    if win_user is not None:
+        for user in room.users:
+            if win_user.userLink == user.userLink:
+                win_user.userLink.write_message('win 你赢了')
+            else:
+                user.userLink.write_message('win 你输了 赢家{0}'.format(win_user.puke))
 
 
 # 用户集合管理
@@ -47,6 +47,7 @@ class __UserManager():
             user = ClassBean.newUser(userLink, userName)
 
         self.users[userLink] = user
+        print(len(self.users))
         return user
 
     def getUserSize(self):

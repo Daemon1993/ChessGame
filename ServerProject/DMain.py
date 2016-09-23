@@ -35,12 +35,12 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
         DataParse.parseAction(message)
 
-        if message == "createRoom":
-            # 获取 房间
-            room = Presenter.roomManager.getRoomByTag(Presenter.roomManager, message)
-            # puke=ClassManager.getPuke()
-            self.write_message('create Room {0} OK users {1}  '.format(room.tag, Presenter.userManager.getUserSize()))
-            return
+        # if message == "createRoom":
+        #     # 获取 房间
+        #     room = Presenter.roomManager.getRoomByTag(Presenter.roomManager, message)
+        #     # puke=ClassManager.getPuke()
+        #     self.write_message('create Room {0} OK users {1}  '.format(room.tag, Presenter.userManager.getUserSize()))
+        #     return
 
 
 
@@ -62,9 +62,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class HomeHandler(tornado.web.RequestHandler):
-
     def get(self):
-
         self.render("GameHall/build/web-desktop/index.html")
 
 
@@ -72,22 +70,20 @@ class HomeHandler(tornado.web.RequestHandler):
 
 def initData():
     return tornado.web.Application([
-        ('/index', ChessGameSocket),
+        ('/main', ChessGameSocket),
         ('/getProtocol', GetProtocolHanlder),
-        ("/home", HomeHandler),
-        ("/index1", IndexHandler),
+        ("/zjb", HomeHandler),
+        ("/index", IndexHandler),
 
     ])
 
 
-
-if __name__ == '__main__':
-
-    print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
-
+def beginBmob():
+    print(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
     Presenter.initData(10)
     app = initData()
 
     app.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
+
