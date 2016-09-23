@@ -62,9 +62,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class HomeHandler(tornado.web.RequestHandler):
-
     def get(self):
-
         self.render("GameHall/build/web-desktop/index.html")
 
 
@@ -72,10 +70,10 @@ class HomeHandler(tornado.web.RequestHandler):
 
 def initData():
     return tornado.web.Application([
-        ('/index', ChessGameSocket),
+        ('/main', ChessGameSocket),
         ('/getProtocol', GetProtocolHanlder),
-        ("/home", HomeHandler),
-        ("/index1", IndexHandler),
+        ("/zjb", HomeHandler),
+        ("/index", IndexHandler),
 
     ])
 

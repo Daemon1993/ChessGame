@@ -40,6 +40,7 @@ class __User():
         if user is not None:
             return False
         self.roomId = room.tag
+        self.isDown=1
         room.addUser(self)
 
         print('user {0} join room {1}'.format(self.userName,room.tag))
@@ -53,7 +54,7 @@ class __User():
 
 def newUser(userLink, userName):
     user = __User(userLink, userName)
-    print("上线 " + user.userName)
+    print("上线 " + user.userName )
     return user
 
 
