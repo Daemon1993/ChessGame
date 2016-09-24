@@ -1,6 +1,10 @@
 import random
 
 import json
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 #aaaaa
 def getRandomPuke(pukes):
@@ -15,11 +19,11 @@ def getRandomPuke(pukes):
 
 #解析传来数据 指向不同的行为
 def parseAction(user_link,json_msg,action_dict):
-    print(json_msg)
+
     try:
         msg=json.loads(json_msg)
     except Exception as e:
-        print('接收数据转换json失败')
+        logger.error('接收数据转换json失败')
         return None
 
     code=msg['code']

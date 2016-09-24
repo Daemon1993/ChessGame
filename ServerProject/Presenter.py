@@ -1,7 +1,10 @@
 
-
 from model import ClassBean
 import ActionProtocol,Utils
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 __author__ = 'Daemon1993'
 
@@ -9,17 +12,15 @@ __author__ = 'Daemon1993'
 主持人 逻辑控制者
 '''
 
-#行为回调
-def action1():
-    print('code 1')
 
 def initData(size):
+
     # 初始化 房间数
     for index in range(1, size+1):
         roomTag = "room" + str(index)
         roomManager.newRoom(roomTag)
 
-    print('all room {0}'.format(len(roomManager.managers)))
+    logger.info('all room {0}'.format(len(roomManager.managers)))
 
 
     #客户端的回调 功能添加
@@ -48,12 +49,12 @@ class __UserManager():
     def addUser(self, userLink, userName):
         user = self.users.get(userLink)
         if user is not None:
-            print('用户已经存在')
+            logger.warning('用户已经存在')
         else:
             user = ClassBean.newUser(userLink, userName)
 
         self.users[userLink] = user
-        print(len(self.users))
+
         return user
 
     def getUserSize(self):
@@ -62,7 +63,7 @@ class __UserManager():
     # 用户下线
     def removeUser(self, userLink):
         user=self.users[userLink]
-        print("掉线 {0}".format(user))
+        logger.info("掉线 {0}".format(user))
 
         # 删除当前账号的房间的当前用户
         roomManager.removeUserById(user)

@@ -3,6 +3,9 @@ import Utils
 from model import ResponseData
 
 __author__ = 'Daemon1993'
+import logging
+
+logger = logging.getLogger(__name__)
 
 '''
 面向对象
@@ -41,7 +44,7 @@ class __User():
         self.isDown=1
         room.addUser(self)
 
-        print('user {0} join room {1}'.format(self.userName,room.tag))
+        logger.info('user {0} join room {1}'.format(self.userName,room.tag))
         self.userLink.write_message('欢迎来到房间 {0}'.format(room.tag))
         return True
 
@@ -52,7 +55,7 @@ class __User():
 
 def newUser(userLink, userName):
     user = __User(userLink, userName)
-    print("上线 " + user.userName )
+    logger.info("上线 " + user.userName )
     return user
 
 
@@ -96,7 +99,7 @@ class __Room():
             if realPuke > max:
                 max = realPuke
                 win_user = user
-            print('showPuke {0} {1}'.format(user.userName, puke))
+            logger.debug('showPuke {0} {1}'.format(user.userName, puke))
             user.userLink.write_message('你的牌 {0}'.format(puke))
 
         return win_user

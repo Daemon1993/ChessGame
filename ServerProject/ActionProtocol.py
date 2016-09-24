@@ -1,3 +1,9 @@
+
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 #行为协议 接受客户端
 action_dicts_from_c={}
 
@@ -7,6 +13,7 @@ def addAction(code,action):
 
 
 def action1(user_link):
+    logger.info('code 1')
     user_link.write_message('code 1')
 
 
