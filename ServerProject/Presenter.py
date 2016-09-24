@@ -1,12 +1,17 @@
 import DataParse
 
 from model import ClassBean
+import ActionFromClient
 
 __author__ = 'Daemon1993'
 
 '''
 主持人 逻辑控制者
 '''
+
+#行为回调
+def action1():
+    print('code 1')
 
 def initData(size):
     # 初始化 房间数
@@ -17,7 +22,11 @@ def initData(size):
     print('all room {0}'.format(len(roomManager.managers)))
 
 
+    #客户端的回调 功能添加
+    ActionFromClient.addAction(1,ActionFromClient.action1)
 
+    # ActionFromClient.action_dicts[1]=action1
+    # print(ActionFromClient.action_dicts)
 
 
 # 开始 puke
@@ -116,14 +125,6 @@ def joinRoom(user, room1):
     updateRoomMsg(room1)
 
 
-#行为回调
-def action1():
-    print('code 1')
 
-def action2():
-    print('code 2')
-
-
-def parseAction(message):
-   # DataParse.parseAction(message, action_dicts)
-    return None
+def parseAction(user_link,message):
+    DataParse.parseAction(user_link,message, ActionFromClient.action_dicts)

@@ -34,7 +34,7 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
 
-        Presenter.parseAction(message)
+        Presenter.parseAction(self,message)
 
         # if message == "createRoom":
         #     # 获取 房间

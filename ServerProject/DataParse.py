@@ -4,8 +4,9 @@ import json
 
 
 
-#解析传来数据
-def parseAction(json_msg,action_dict):
+#解析传来数据 指向不同的行为
+def parseAction(user_link,json_msg,action_dict):
+    print(json_msg)
     try:
         msg=json.loads(json_msg)
     except Exception as e:
@@ -13,9 +14,11 @@ def parseAction(json_msg,action_dict):
         return None
 
     code=msg['code']
+
     for code_key in action_dict:
         if code==code_key:
-            action_dict[code_key]
+            action_dict[code_key](user_link)
+            break
 
 
 #生成json 传给客户端

@@ -5,8 +5,8 @@
     <title></title>
 </head>
 <script>
-    //var ws = new WebSocket("ws://112.74.207.72:8888/main");
-    var ws = new WebSocket("ws://localhost:8888/main");
+    var ws = new WebSocket("ws://112.74.207.72:8888/main");
+    //var ws = new WebSocket("ws://localhost:8888/main");
     ws.onopen = function () {
         ws.send("Daemon");
     };
@@ -27,7 +27,7 @@
         ws.send("createRoom");
     }
     function getPuke() {
-        ws.send("getPuke");
+        ws.send('{"code":1}');
     }
 
 </script>
@@ -37,6 +37,6 @@
 <p id='message2'>puke result</p>
 
 <!--<button onclick="createRoom()">创建房间</button>-->
-<!--<button onclick="getPuke()">发牌</button>-->
+<button onclick="getPuke()">code = 1</button>
 </body>
 </html>
