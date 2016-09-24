@@ -27,7 +27,7 @@ class HomeHanlder(tornado.web.StaticFileHandler):
 # 获取协议 接口
 class GetProtocolHanlder(tornado.web.RequestHandler):
     def get(self):
-        self.write('给你协议')
+        self.write('给你协议的接口')
 
 
 
@@ -80,13 +80,11 @@ def initData():
         ('/getProtocol', GetProtocolHanlder),
         ("/index", IndexHandler),
         ],
-        debug=options.debug,
     )
 
 
 if __name__ == '__main__':
-    print(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-
+    logger.info('Bmob start.......')
     Presenter.initData(10)
     app = initData()
 
