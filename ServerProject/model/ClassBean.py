@@ -1,4 +1,4 @@
-import DataParse
+
 import Utils
 from model import ResponseData
 
@@ -123,7 +123,7 @@ class __Room():
         data = ResponseData.RoomData.Data(1, 1, user_count, 4, 5, 10, 123, 100, 0)
         roomData = ResponseData.RoomData(10, 1, data)
 
-        msg= DataParse.parseSendJson(roomData)
+        msg= Utils.parseSendJson(roomData)
 
 
         # ddd=json.loads(msg)

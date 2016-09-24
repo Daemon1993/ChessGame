@@ -1,7 +1,7 @@
-import DataParse
+
 
 from model import ClassBean
-import ActionFromClient
+import ActionProtocol,Utils
 
 __author__ = 'Daemon1993'
 
@@ -23,7 +23,7 @@ def initData(size):
 
 
     #客户端的回调 功能添加
-    ActionFromClient.addAction(1,ActionFromClient.action1)
+    ActionProtocol.initActionsFromC()
 
     # ActionFromClient.action_dicts[1]=action1
     # print(ActionFromClient.action_dicts)
@@ -127,4 +127,4 @@ def joinRoom(user, room1):
 
 
 def parseAction(user_link,message):
-    DataParse.parseAction(user_link,message, ActionFromClient.action_dicts)
+    Utils.parseAction(user_link, message, ActionProtocol.action_dicts_from_c)
