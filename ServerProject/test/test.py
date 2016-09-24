@@ -2,13 +2,14 @@
 
 from ServerProject import Presenter
 
+
 #前往某个房间
 def go2Room():
-    user=Presenter.userManager.addUser("id", 'Daemon')
+    user= Presenter.userManager.addUser("id", 'Daemon')
 
     for index in range(1, 101):
         roomTag="room"+str(index)
-        room=Presenter.roomManager.getRoomByTag(Presenter.roomManager, roomTag)
+        room= Presenter.roomManager.getRoomByTag(Presenter.roomManager, roomTag)
         print('{0} go2Room {1}'.format(user.userName,roomTag))
         isOk=user.go2Room(room)
         if isOk==False:
@@ -22,7 +23,7 @@ def pukeBegin():
     Presenter.initData()
     print('all room {0} {1}'.format(hex(id(Presenter.roomManager)), len(Presenter.roomManager.managers)))
 
-    room=Presenter.roomManager.managers['room1']
+    room= Presenter.roomManager.managers['room1']
 
     user1 = Presenter.userManager.addUser("id1", 'Daemon1')
     user2= Presenter.userManager.addUser("id2", 'Daemon2')

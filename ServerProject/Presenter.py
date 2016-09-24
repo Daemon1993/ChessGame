@@ -1,15 +1,12 @@
-from ServerProject import Utils, ClassBean
+import DataParse
+
+from model import ClassBean
 
 __author__ = 'Daemon1993'
-
-import json
-
 
 '''
 主持人 逻辑控制者
 '''
-
-
 
 def initData(size):
     # 初始化 房间数
@@ -119,7 +116,14 @@ def joinRoom(user, room1):
     updateRoomMsg(room1)
 
 
+#行为回调
+def action1():
+    print('code 1')
+
+def action2():
+    print('code 2')
 
 
-
-
+def parseAction(message):
+   # DataParse.parseAction(message, action_dicts)
+    return None

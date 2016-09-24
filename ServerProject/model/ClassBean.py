@@ -1,8 +1,6 @@
-from ServerProject import Utils,DataParse
-from ServerProject.model import ResponseData
-
-
-import json
+import DataParse
+import Utils
+from model import ResponseData
 
 __author__ = 'Daemon1993'
 
@@ -125,7 +123,7 @@ class __Room():
         data = ResponseData.RoomData.Data(1, 1, user_count, 4, 5, 10, 123, 100, 0)
         roomData = ResponseData.RoomData(10, 1, data)
 
-        msg=DataParse.parseSendJson(roomData)
+        msg= DataParse.parseSendJson(roomData)
 
 
         # ddd=json.loads(msg)

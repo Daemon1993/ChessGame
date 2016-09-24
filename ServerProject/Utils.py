@@ -1,6 +1,5 @@
 import random
 
-import ServerProject.model.ResponseData
 
 #aaaaa
 def getRandomPuke(pukes):

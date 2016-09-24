@@ -1,9 +1,10 @@
+import os
+
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
-import os
 
-from ServerProject import Presenter,DataParse
+import Presenter
 
 __author__ = 'Daemon1993'
 #再试一把,终于能正常通过github客户端提交成年了 我靠!!!!!
@@ -33,7 +34,7 @@ class ChessGameSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
 
-        DataParse.parseAction(message)
+        Presenter.parseAction(message)
 
         # if message == "createRoom":
         #     # 获取 房间
@@ -60,25 +61,17 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 
-
-class HomeHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render("GameHall/build/web-desktop/index.html")
-
-
-
-
 def initData():
     return tornado.web.Application([
         ('/main', ChessGameSocket),
         ('/getProtocol', GetProtocolHanlder),
-        ("/zjb", HomeHandler),
         ("/index", IndexHandler),
 
     ])
 
 
-def beginBmob():
+if __name__ == '__main__':
+
     print(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
     Presenter.initData(10)

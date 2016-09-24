@@ -3,18 +3,9 @@ __author__ = 'Daemon1993'
 import json
 
 
-#
-def action1():
-    pass
-
-
-def action2():
-    pass
-
 
 #解析传来数据
-def parseAction(json_msg):
-
+def parseAction(json_msg,action_dict):
     try:
         msg=json.loads(json_msg)
     except Exception as e:
@@ -22,12 +13,9 @@ def parseAction(json_msg):
         return None
 
     code=msg['code']
-    if code==1:
-        action1()
-        return
-    if code==2:
-        action2()
-        return
+    for code_key in action_dict:
+        if code==code_key:
+            action_dict[code_key]
 
 
 #生成json 传给客户端
