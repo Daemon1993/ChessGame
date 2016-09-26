@@ -7,6 +7,8 @@ import tornado.websocket
 from tornado.options import define,options
 import logging
 
+
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
