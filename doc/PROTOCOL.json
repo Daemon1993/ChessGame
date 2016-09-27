@@ -7,18 +7,18 @@
 {
 	"TYPE":{
 		//进入房间包
-		"CLI_JOINROOM":0x0001,  //客户端 -> 服务器的包
-		"SVR_JOINROOM":0x0002,  //服务器 -> 客户端的包
+		"CLI_JOINROOM":1,  //客户端 -> 服务器的包
+		"SVR_JOINROOM":2,  //服务器 -> 客户端的包
 		//坐下包
-		"CLI_SITDOWN":0x0003,  
-		"SVR_SITDOWN":0x0004,
+		"CLI_SITDOWN":3,
+		"SVR_SITDOWN":4,
 		//站起包
-		"CLI_STANDUP":0x0005,
-		"SVR_STANDUP":0x0006,
+		"CLI_STANDUP":5,
+		"SVR_STANDUP":6
 	},
 	//不知道能飞用16进制做key,如果不行 换成字符串即可
 	"DESCRIBE":{  
-		0x0001:"这里写包里面的字段作用描述,用来解释包作用",
+		"1":"这里写包里面的字段作用描述,用来解释包作用"
 	}
 }
 

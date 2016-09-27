@@ -1,6 +1,7 @@
 import os
 import urllib
 
+import pymongo
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
@@ -86,6 +87,20 @@ def initData():
 
 if __name__ == '__main__':
     logger.info('Bmob start.......')
+
+    user={"_id":'daemon'}
+
+    conn = pymongo.MongoClient(host='112.74.207.72', port=27017)
+    print(conn.address)
+    db_auth = conn.admin
+    db_auth.authenticate('daemon', 'daemon123')
+    # collection = db_auth.ajinomoto_menu
+    collection = db_auth.GUser
+    try:
+        collection.insert(user)
+    except Exception as e:
+        logger.info('user name {0} has exist'.format(user['_id']))
+
     Presenter.initData(10)
     app = initData()
 
@@ -93,3 +108,5 @@ if __name__ == '__main__':
     app.listen(options.port)
 
     tornado.ioloop.IOLoop.instance().start()
+
+
