@@ -1,12 +1,3 @@
-
-var socket = null;
-
-if(cc.sys.isNative) {
-    socket = SocketIO.connect('http://huoor.com:8888')
-}else {
-    socket = io('http://huoor.com:8888');
-}
-
 cc.Class({
     extends: cc.Component,
     properties: {
@@ -20,16 +11,35 @@ cc.Class({
     onLoad: function () {
         let self = this;
         this.label.string = '等待连接....';
-        socket.on('connect', function(){
-            self.label.string = '成功连接服务器'
-            console.log('成功连接服务器')
-        });
-        socket.on('event', function(data){
+    },
 
-        });
-        socket.on('disconnect', function(){
-            self.label.string = '失去连接'
-        });
+    start:function(){
+        var ws = new WebSocket("ws://huoor.com:8888/main");
+        // if (ws.readyState === WebSocket.OPEN) 
+        ws.onopen = function () {
+            ws.send("Dall");
+        };
+        ws.onmessage = function (event) {
+            console.log(event.data)
+            if (event.data.indexOf('你的牌') >= 0) {
+                console.log(event.data)
+                return;
+            }
+            else if (event.data.indexOf('win') >= 0) {
+                console.log(event.data)
+                return;
+            }
+        };
+
+        function createRoom() {
+            ws.send("createRoom");
+        }
+        function getPuke1() {
+            ws.send('{"code":1}');
+        }
+        function getPuke2() {
+            ws.send('{"code":2}');
+        }
     },
 
     // called every frame
