@@ -14,15 +14,8 @@ logger = logging.getLogger(__name__)
 
 # 用户类 里面有roomID
 class __User():
-    # 每个连接的WebSocket
-    userLink = ""
-    userName = ""
-    roomId = ""
-    #扑克牌具体数
-    puke = ""
-    userID=""
-    #是否坐着
-    isDown=None
+    # # 每个连接的WebSocket
+    # userLink = ""
 
     def __repr__(self):
         return 'userID :{0}'.format(self.userName)
@@ -33,6 +26,7 @@ class __User():
         self.roomId = ""
         self.puke = ""
         self.userID = ""
+        self.isDown=False
 
 
     #前往某个房间
@@ -41,17 +35,32 @@ class __User():
         if user is not None:
             return False
         self.roomId = room.tag
-        self.isDown=1
+        self.isDown=True
+        room.hasSeats+=1
+
         room.addUser(self)
 
         logger.info('user {0} join room {1}'.format(self.userName,room.tag))
         self.userLink.write_message('欢迎来到房间 {0}'.format(room.tag))
         return True
 
+    #前往座位
+    def getSeat(self,room):
+        if room.hasSeats>=100:
+            logger.warning('座位已满 不能继续坐下')
+            return
+        self.isDown=True
+
+
+
     # 离开房间
-    def exitRoom(self):
+    def exitRoom(self,room):
+        #房间清除
+        room.users.remove(self)
+
         self.roomId = ""
         self.isDown=None
+        self.isDown=False
 
 def newUser(userLink, userName):
     user = __User(userLink, userName)
@@ -61,12 +70,11 @@ def newUser(userLink, userName):
 
 # 房间类 里面有User
 class __Room():
-    tag = ""
-    users = []
 
     def __init__(self, tag):
         self.tag = tag
         self.users = []
+        self.hasSeats=0
 
     def addUser(self, user):
         self.users.append(user)

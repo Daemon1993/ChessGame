@@ -11,7 +11,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-
 import Presenter
 
 __author__ = 'Daemon1993'

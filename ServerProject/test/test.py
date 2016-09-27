@@ -1,32 +1,33 @@
 # 单元测试
 
-from ServerProject import Presenter
+# from ServerProject import Presenter
 
 
-#前往某个房间
+# 前往某个房间
 def go2Room():
-    user= Presenter.userManager.addUser("id", 'Daemon')
+    user = Presenter.userManager.addUser("id", 'Daemon')
 
     for index in range(1, 101):
-        roomTag="room"+str(index)
-        room= Presenter.roomManager.getRoomByTag(Presenter.roomManager, roomTag)
-        print('{0} go2Room {1}'.format(user.userName,roomTag))
-        isOk=user.go2Room(room)
-        if isOk==False:
-            print('room {0} Exist user ->{1}'.format(room.tag,user.userName))
+        roomTag = "room" + str(index)
+        room = Presenter.roomManager.getRoomByTag(Presenter.roomManager, roomTag)
+        print('{0} go2Room {1}'.format(user.userName, roomTag))
+        isOk = user.go2Room(room)
+        if isOk == False:
+            print('room {0} Exist user ->{1}'.format(room.tag, user.userName))
 
     print(user)
 
-#开始给每个用户发扑克
+
+# 开始给每个用户发扑克
 def pukeBegin():
-    #print(Presenter.roomManager)
+    # print(Presenter.roomManager)
     Presenter.initData()
     print('all room {0} {1}'.format(hex(id(Presenter.roomManager)), len(Presenter.roomManager.managers)))
 
-    room= Presenter.roomManager.managers['room1']
+    room = Presenter.roomManager.managers['room1']
 
     user1 = Presenter.userManager.addUser("id1", 'Daemon1')
-    user2= Presenter.userManager.addUser("id2", 'Daemon2')
+    user2 = Presenter.userManager.addUser("id2", 'Daemon2')
     user3 = Presenter.userManager.addUser("id3", 'Daemon3')
     user1.go2Room(room)
     user2.go2Room(room)
@@ -34,6 +35,15 @@ def pukeBegin():
 
     Presenter.disTributePuke(room)
 
+
 if __name__ == '__main__':
-    #go2Room()
-    pukeBegin()
+    # go2Room()
+    # pukeBegin()
+
+    print(sum(map(int, str(2 ** 1000))))
+    print(eval(input()))
+
+    import socket
+    sock = socket.create_connection(('ns1.dnspod.net', 6666))
+    print(sock.recv(16))
+    sock.close()

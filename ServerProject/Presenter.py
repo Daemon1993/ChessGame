@@ -62,11 +62,13 @@ class __UserManager():
 
     # 用户下线
     def removeUser(self, userLink):
+
         user=self.users[userLink]
         logger.info("掉线 {0}".format(user))
 
         # 删除当前账号的房间的当前用户
-        roomManager.removeUserById(user)
+
+        roomManager.removeUser(user)
 
         del self.users[userLink]
 
@@ -95,15 +97,16 @@ class __RoomManager(object):
         self.managers[tag] = room
         return room
 
-    def removeUserById(self, user):
+    def removeUser(self, user):
         # print('delete {0}'.format(userId))
         if user is None:
             return
         for room in self.managers.values():
-            if user in room.users:
-                room.users.remove(user)
-                # print('delte later {0}'.format(room.users))
-                return
+             if user in room.users:
+                user.exitRoom(room)
+                #print('delte later {0}'.format(room.users))
+                break
+                # return
 
 
 # 唯一 房间管理类
