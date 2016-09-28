@@ -24,12 +24,18 @@ var SocketService = {};
 
 SocketService.init = function(config) {
 	ws = new WebSocket('ws://' + config.url); //连接服务器
-
+	
 
 
 }
 
+SocketService.sendPack = function(){
+	
+}
 
+SocketService.packData = function(){
+
+}
 
 
 
