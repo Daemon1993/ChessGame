@@ -1,19 +1,33 @@
+
 {
 	"TYPE":{
-
-		"CLI_JOINROOM":1,
-		"SVR_JOINROOM":2,
-
-		"CLI_SITDOWN":3,
-		"SVR_SITDOWN":4,
-
-		"CLI_STANDUP":5,
-		"SVR_STANDUP":6
+		"STRING":"string",
+		"INTEGER":"int",
+		"ARRAY":"array"
 	},
+	"CODE":{
 
+		"CLI_JOINROOM":"1",
+		"SVR_JOINROOM":"2",
+
+		"CLI_SITDOWN":"3",  
+		"SVR_SITDOWN":"4",
+
+		"CLI_STANDUP":"5",
+		"SVR_STANDUP":"6"
+	},
+	"STRUCTURE":{
+		"1":{
+			"name":"string",
+			"ID":"int",
+			"pokers":"array"
+		}
+	},
 	"DESCRIBE":{  
 		"1":"进入房间",
 		"3":"座位",
-		"4":"站起来"
+		"5":"座位站起来"
+
 	}
 }
+
