@@ -7,7 +7,7 @@ import tornado.web
 import tornado.websocket
 from tornado.options import define,options
 import logging
-
+import json
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -29,7 +29,14 @@ class HomeHanlder(tornado.web.StaticFileHandler):
 # 获取协议 接口
 class GetProtocolHanlder(tornado.web.RequestHandler):
     def get(self):
-        self.write('给你协议的接口')
+        text_file = open("model/PROTOCOL.json", "r",encoding='utf-8')
+        lines = text_file.readlines()
+        msg=''
+        for line in lines:
+            line=line.strip('\n')
+            msg+=line
+        #print(msg)
+        self.write(msg)
 
 
 
