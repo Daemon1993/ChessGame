@@ -35,13 +35,11 @@ router.all('/updateGame', function(req, res, next){
 			console.log(stderr);
 			return;
 		}else {
-			res.jsonp({code:0, msg:stdout})
+			res.jsonp({code:0, msg:"成功更新文件夹!"})
 			console.log(stdout)
 			console.log('end --------------updateGame------------------')
 		}
 	})
 })
-
-
 
 module.exports = router;
