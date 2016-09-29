@@ -3,11 +3,27 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <button>后台拉取github代码</button><br>
+    <button id="button">后台拉取github代码</button>
+    结果:<div id="result"></div><br>
     <button>重启服务器</button>
   </body>
+  <script>
+      $("#button").click(function(){
+        $("#result").html('等待结果...') 
+        $.getJSON("/updateGit", function(result){
+            if (result.code == 0) {
+              $("#result").html('成功: ' + result.msg)  
+            }else {
+              $("#result").html('失败: ' + result.msg) 
+            }
+        });
+      });
+  </script>
+
+
 </html>

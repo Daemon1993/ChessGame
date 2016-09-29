@@ -8,17 +8,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: '后台管理' });
 });
 
-router.get('/updateGit', function(req, res, next) {
-	var cmd = '';
-	exec('git pull origin master', function(err, stdout, stderr){
+router.all('/updateGit', function(req, res, next) {
+	// res.render('index', { title: '后台管理' });
+	console.log('start --------------------------------')
+	var cmd ='cd /home/git/ChessGame/ && git pull origin master';   //'cd ~ && ls' 
+	exec(cmd, function(err, stdout, stderr){
 		if(err){
-			res.write(stderr)
+			res.jsonp({code:1, msg:stderr})
 			console.log(stderr);
 			return;
 		}else {
-			console.log('执行成功!')
-			res.writeln(stdout)
+			res.jsonp({code:0, msg:stdout})
 			console.log(stdout)
+			console.log('end --------------------------------')
 		}
 	})
 });
