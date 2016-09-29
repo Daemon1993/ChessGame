@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '后台管理' });
+  res.render('index', { title: '脆弱的后台管理' });
 });
 //拉取github代码
 router.all('/updateGit', function(req, res, next) {
