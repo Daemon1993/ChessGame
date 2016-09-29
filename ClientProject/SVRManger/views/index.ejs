@@ -8,12 +8,14 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <button id="button">后台拉取github代码</button>
+    <button id="updateGitBtn">后台拉取github代码</button>
     结果:<div id="result"></div><br>
+    <button id='updateGameBtn'>更新游戏代码</button>
+    结果:<div id="result2"></div><br>
     <button>重启服务器</button>
   </body>
   <script>
-      $("#button").click(function(){
+      $("#updateGitBtn").click(function(){
         $("#result").html('等待结果...') 
         $.getJSON("/updateGit", function(result){
             if (result.code == 0) {
@@ -23,6 +25,20 @@
             }
         });
       });
+
+      $("#updateGameBtn").click(function(){
+        $("#result2").html('等待结果...') 
+        $.getJSON("/updateGame", function(result){
+            if (result.code == 0) {
+              $("#result2").html('成功: ' + result.msg)  
+            }else {
+              $("#result2").html('失败: ' + result.msg) 
+            }
+        });
+      });
+
+
+
   </script>
 
 

@@ -7,10 +7,9 @@ var exec = require('child_process').exec;
 router.get('/', function(req, res, next) {
   res.render('index', { title: '后台管理' });
 });
-
+//拉取github代码
 router.all('/updateGit', function(req, res, next) {
-	// res.render('index', { title: '后台管理' });
-	console.log('start --------------------------------')
+	console.log('start --------------updateGit------------------')
 	var cmd ='cd /home/git/ChessGame/ && git pull origin master';   //'cd ~ && ls' 
 	exec(cmd, function(err, stdout, stderr){
 		if(err){
@@ -20,10 +19,29 @@ router.all('/updateGit', function(req, res, next) {
 		}else {
 			res.jsonp({code:0, msg:stdout})
 			console.log(stdout)
-			console.log('end --------------------------------')
+			console.log('end --------------updateGit------------------')
 		}
 	})
 });
+//移动项目文件到指定位置
+router.all('/updateGame', function(req, res, next){
+	console.log('start ---------------updateGame-----------------')
+	var target = '/home/git/ChessGame/ClientProject/GameHall/build/web-desktop '
+	var endDir = '/home/git/ChessGame/ClientProject/SVRManger/public/'
+	var cmd ='cp -rf ' + target + ' ' + endDir;
+	exec(cmd, function(err, stdout, stderr){
+		if(err){
+			res.jsonp({code:1, msg:stderr})
+			console.log(stderr);
+			return;
+		}else {
+			res.jsonp({code:0, msg:stdout})
+			console.log(stdout)
+			console.log('end --------------updateGame------------------')
+		}
+	})
+})
+
 
 
 module.exports = router;
