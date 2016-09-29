@@ -26,8 +26,8 @@ router.all('/updateGit', function(req, res, next) {
 //移动项目文件到指定位置
 router.all('/updateGame', function(req, res, next){
 	console.log('start ---------------updateGame-----------------')
-	var target = '/home/git/ChessGame/ClientProject/GameHall/build/web-desktop '
-	var endDir = '/home/git/ChessGame/ClientProject/SVRManger/public/'
+	var target = '/home/git/ChessGame/ClientProject/GameHall/build/web-desktop'
+	var endDir = '/home/git/ChessGame/ClientProject/SVRManger/public/web-desktop'
 	var cmd ='cp -rf ' + target + ' ' + endDir;
 	exec(cmd, function(err, stdout, stderr){
 		if(err){
