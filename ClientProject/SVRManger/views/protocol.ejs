@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>协议</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <h2>游戏协议:</h2>
+      <% for(var k in data.CODE){ %>
+            <div> <%= k + " : " + data.DESCRIBE[data.CODE[k]] %> </div> <br>
+            <div>
+               结构: 
+               <% 
+                  var structure = data.STRUCTURE[data.CODE[k]] 
+                  for(var index in structure) {
+                %>
+                  <p> <%= index + " = " + structure[index] %></p>
+                <%
+                  }
+                %> 
+
+            </div> <br>
+        <% } %>
+  </body>
+
+  <script>
+      
+  </script>
+
+</html>

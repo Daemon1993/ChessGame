@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var exec = require('child_process').exec;
-
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -40,6 +40,18 @@ router.all('/updateGame', function(req, res, next){
 			console.log('end --------------updateGame------------------')
 		}
 	})
+})
+//协议查看
+router.all('/getProtocol', function(req, res, next){
+	fs.readFile(__dirname + '/../public/PROTOCOL.json', {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+	    if(err) {
+	     	console.error(err);
+	     	return;
+	    }
+	    var json = JSON.parse(data.trim());
+	    res.render('protocol', {data:json});
+	});
+	
 })
 
 module.exports = router;
