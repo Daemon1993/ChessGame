@@ -6,21 +6,20 @@
   </head>
   <body>
     <h2>游戏协议:</h2>
+    <table border="1">
+      <tr><td>名称:</td><td>结构:</td><td>描述:</td></tr>
       <% for(var k in data.CODE){ %>
-            <div> <%= k + " : " + data.DESCRIBE[data.CODE[k]] %> </div> <br>
-            <div>
-               结构: 
-               <% 
-                  var structure = data.STRUCTURE[data.CODE[k]] 
-                  for(var index in structure) {
-                %>
-                  <p> <%= index + " = " + structure[index] %></p>
-                <%
-                  }
-                %> 
-
-            </div> <br>
+            <tr>
+            <td> <%= k %> </td>
+            
+            <td> <% for(var i in data.STRUCTURE[data.CODE[k]]) { %>
+                     <%= i + ":" + data.STRUCTURE[data.CODE[k]][i] + ', ' %>
+                 <% } %> 
+            </td>
+            <td> <%= data.DESCRIBE[data.CODE[k]] %> </td>
+            </tr>
         <% } %>
+    </table> 
   </body>
 
   <script>
