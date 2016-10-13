@@ -33,10 +33,7 @@
 				"gameState":"int",
 				"seatArr":{
 					"uid":"int",
-					"pokerArr":{
-						"card1":"byte",
-						"card2":"byte"
-					}
+					"pokerArr":"array"
 				}
 			},
 		"4":{"status":"string"},
@@ -73,7 +70,8 @@
 		"timestamp":"当前时间",
 		"nick":"用户昵称",
 		"gameState":"当前牌局游戏状态",
-		"seatArr":"当前牌局座位状态"
+		"seatArr":"当前牌局座位状态",
+		"pokerArr":"座位上面的手牌数组"
 	}
 }
 
