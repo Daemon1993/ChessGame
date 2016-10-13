@@ -46,7 +46,7 @@
 	"STATUSCODE":{
 		"OK":"ok正确",
 		"ERROR":"一般错误",
-		"NET_ERROR":"网络错误",
+		"NET_ERROR":"网络错误"
 	}
 }
 
