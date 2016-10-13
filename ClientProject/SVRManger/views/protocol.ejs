@@ -6,12 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" />
   </head>
   <body>
+    <div align="center">
     <h2>游戏协议:</h2>
-    <table border="1" class="am-table">
+    <table class="am-table am-table-striped am-table-hover" style="width:80%">
       <tr><td>名称:</td><td>结构:</td><td>描述:</td></tr>
       <% for(var k in data.CODE){ %>
             <tr>
-            <td> <%= k %> </td>
+            <td class="am-primary"><%= k %></td>
             
             <td> <% for(var i in data.STRUCTURE[data.CODE[k]]) { %>
                      <%= i + ":" + data.STRUCTURE[data.CODE[k]][i] + ', ' %>
@@ -21,13 +22,18 @@
             </tr>
         <% } %>
     </table> 
-	<h4>游戏状态码:</h4>
-	<table border="1">
-	<tr><td>CODE:</td><td>描述:</td></tr>
-	<% for(var k in data.STATUSCODE){ %>
-		<tr><td><%=k%></td><td><%=data.STATUSCODE[k]%></td></tr>
-	<% } %>
-	</table> 
+
+
+    <h4>游戏状态码:</h4>
+    <table class="am-table am-table-striped am-table-hover" style="width:80%">
+    <tr><td>状态码:</td><td>描述:</td></tr>
+    <% for(var k in data.STATUSCODE){ %>
+      <tr><td class="am-primary"><%=k%></td><td><%=data.STATUSCODE[k]%></td></tr>
+    <% } %>
+    </table> 
+
+  </div>
+	
   </body>
 
   <script>
