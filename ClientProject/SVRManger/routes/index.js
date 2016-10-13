@@ -50,10 +50,8 @@ router.all('/getProtocol', function(req, res, next){
 	     	console.error(err);
 	     	return;
 	    }
-	    var json = JSON.parse(data.trim());
-	    res.render('protocol', {data:json});
+	    res.render('protocol', {data:JSON.parse(data.trim())});
 	});
-	
 })
 
 module.exports = router;

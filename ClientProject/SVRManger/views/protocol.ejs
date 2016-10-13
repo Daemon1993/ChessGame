@@ -11,33 +11,58 @@
     <table class="am-table am-table-striped am-table-hover" style="width:80%">
       <tr><td>名称:</td><td>结构:</td><td>描述:</td></tr>
       <% for(var k in data.CODE){ %>
-            <tr>
-            <td class="am-primary"><%= k %></td>
-            
-            <td> <% for(var i in data.STRUCTURE[data.CODE[k]]) { %>
-                     <%= i + ":" + data.STRUCTURE[data.CODE[k]][i] + ', ' %>
-                 <% } %> 
-            </td>
+            <% if(k.substring(0,3) == 'CLI') {%>
+            <tr class="am-primary">
+            <% }else {%>
+            <tr class="am-warning">
+            <% } %>
+            <td ><%= k %></td>
+            <td id="<%= k %>"></td>
             <td> <%= data.DESCRIBE[data.CODE[k]] %> </td>
             </tr>
         <% } %>
     </table> 
 
 
-    <h4>游戏状态码:</h4>
+    <h4>协议状态码:</h4>
     <table class="am-table am-table-striped am-table-hover" style="width:80%">
     <tr><td>状态码:</td><td>描述:</td></tr>
     <% for(var k in data.STATUSCODE){ %>
-      <tr><td class="am-primary"><%=k%></td><td><%=data.STATUSCODE[k]%></td></tr>
+      <tr><td><%=k%></td><td><%=data.STATUSCODE[k]%></td></tr>
     <% } %>
     </table> 
 
   </div>
-	
   </body>
 
   <script>
-      
+      function createStr(str, count) {
+          var strNew = '';
+          for(var i=0; i<count; i++){
+            strNew += str;
+          }
+          return strNew;
+      };
+      $.getJSON("/PROTOCOL.json",function(data){ 
+          
+          for(var k in data.CODE){
+            var stc = data.STRUCTURE[data.CODE[k]]; //对应协议的结构
+            var jsonStr = JSON.stringify(stc)||"无说明";
+            var rs = "",count = 0;
+            var flag = jsonStr.match(/,|\{|\}/);
+            while(flag) { //存在
+              if(flag[0] == "{"){
+                  jsonStr = jsonStr.replace(/\{/, "[<br>" + createStr("&emsp;&emsp;", ++count))
+              }else if(flag[0] == ","){
+                  jsonStr = jsonStr.replace(/,/, ";<br>" + createStr("&emsp;&emsp;", count))
+              }else if(flag[0] == "}"){
+                  jsonStr = jsonStr.replace(/\}/, "<br>" + createStr("&emsp;&emsp;", --count) + "]")
+              }
+              flag = jsonStr.match(/,|\{|\}/);
+            }
+            $("#"+k).html(jsonStr)
+          }
+      })
   </script>
 
 </html>
