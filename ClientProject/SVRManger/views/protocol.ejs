@@ -49,20 +49,21 @@
             var stc = data.STRUCTURE[data.CODE[k]]; //对应协议的结构
             var jsonStr = JSON.stringify(stc)||"无说明";
             var count = 0;
-            // console.log(jsonStr)
-            // var arr = jsonStr.split(/,/)
-            // for(var itemStr in arr){
-            //   if(arr[itemStr].length > 0){
-            //     var array = arr[itemStr].split(':')
-            //     var key = array[0].replace(/"/g, "")
-            //     if(data.FIELD_DES[key]) {
-            //         console.log(" ---- "+data.FIELD_DES[key])
-            //         arr[itemStr] += " ---- "+data.FIELD_DES[key]
-            //     }
-            //   } 
-            // }
-            // console.log(arr.toString())
-            // jsonStr = arr.toString()
+            console.log(jsonStr)
+            var arr = jsonStr.split(/,/)
+            for(var itemStr in arr){
+              if(arr[itemStr].length > 0){
+                var array = arr[itemStr].replace(/\{|\}/g,"").split(':')
+                var key = array[0].replace(/"/g, "")
+                console.log(" key ---- "+key)
+                if(data.FIELD_DES[key]) {
+                    // console.log(" ---- "+data.FIELD_DES[key])
+                    arr[itemStr] += "=>"+data.FIELD_DES[key]
+                }
+              } 
+            }
+            console.log(arr.toString())
+            jsonStr = arr.toString()
             var flag = jsonStr.match(/,|\{|\}/);
             while(flag) { //存在
               if(flag[0] == "{"){
