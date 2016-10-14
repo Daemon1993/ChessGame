@@ -2,11 +2,45 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-	Test
+    <button id="updateGitBtn">后台拉取github代码</button>
+    结果:<div id="result"></div><br>
+    <button id='updateGameBtn'>更新游戏代码</button>
+    结果:<div id="result2"></div><br>
+    <button>重启python游戏服务器</button>
+    暂时未提供服务<div id="result3"></div><br>
+    <br>
+    游戏地址:<a href="/web-desktop/index.html">脆弱的游戏项目</a><br><br>
+    游戏协议:<a href="/getProtocol">可视化版本</a>  || <a href="http://bg.huoor.com/PROTOCOL.json">代码版本</a>
   </body>
+
+
+  <script>
+      $("#updateGitBtn").click(function(){
+        $("#result").html('等待结果...') 
+        $.getJSON("/updateGit", function(result){
+            if (result.code == 0) {
+              $("#result").html('成功: ' + result.msg)  
+            }else {
+              $("#result").html('失败: ' + result.msg) 
+            }
+        });
+      });
+
+      $("#updateGameBtn").click(function(){
+        $("#result2").html('等待结果...') 
+        $.getJSON("/updateGame", function(result){
+            if (result.code == 0) {
+              $("#result2").html('成功: ' + result.msg)  
+            }else {
+              $("#result2").html('失败: ' + result.msg) 
+            }
+        });
+      });
+  </script>
+
 </html>

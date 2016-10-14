@@ -1,0 +1,44 @@
+
+{
+	"TYPE":{
+		"STRING":"string",
+		"INTEGER":"int",
+		"ARRAY":"array"
+	},
+	"CODE":{
+
+		"CLI_JOINROOM":"1",
+		"SVR_JOINROOM":"2",
+
+		"CLI_SITDOWN":"3",  
+		"SVR_SITDOWN":"4",
+
+		"CLI_STANDUP":"5",
+		"SVR_STANDUP":"6",
+
+		"CLI_HEARTBEAT":"7",
+		"SVR_HEARTBEAT":"8",
+
+		"CLI_LOGIN":"9",
+		"SVR_LOGIN":"10",
+
+	},
+	"STRUCTURE":{
+		"1":{"name":"string","ID":"int","pokers":"array"},
+		"7":{"token":"string","uid":"int"},
+		"8":{},
+		"9":{"token":"string", "uid":"int"},
+		"10":{},
+	},
+	"DESCRIBE":{  
+		"1":"客户端-进入房间",
+		"2":"服务器-进入房间",
+		"3":"座位",
+		"5":"座位站起来",
+		"7":"客户端-发送心跳包",
+		"8":"服务器-心跳结果",
+		"9":"客户端-登录",
+		"10":"服务器-登录结果",
+	}
+}
+

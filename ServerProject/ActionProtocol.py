@@ -22,6 +22,7 @@ def action2(user_link):
 
 
 def initActionsFromC():
+
     addAction(1, action1)
     addAction(2, action2)
 

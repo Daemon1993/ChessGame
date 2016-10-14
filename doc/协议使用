@@ -1,0 +1,18 @@
+//使用方式:
+
+/*  读取到协议对象为P,   P.CODE.CLI_JOINROOM  就表示协议标示
+    通过P.DESCRIBE[P.CODE.CLI_JOINROOM]可以知道包的作用,DESCRIBE的部分可有可无,非必须
+    通过 遍历 P.STRUCTURE[P.CODE.CLI_JOINROOM] 的 key 和 value,来确定包结构的完整性,以及创建数据包
+
+    实例:
+	var P = xxx.getConfig()
+	var CODE = P.CODE
+	var TYPE = P.TYPE
+	var STRUCTURE = P.STRUCTURE
+
+	for(var key in STRUCTURE[CODE.CLI_JOINROOM]) {
+		var value = STRUCTURE[CODE.CLI_JOINROOM][key];
+		//TODO 判断要打包的数据类型 是否正确
+	}
+
+*/
