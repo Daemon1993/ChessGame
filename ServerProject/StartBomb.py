@@ -40,6 +40,7 @@ class GetProtocolHanlder(tornado.web.RequestHandler):
 
 
 
+
 class ChessGameSocket(tornado.websocket.WebSocketHandler):
     def open(self):
         logger.debug("WebSocket ip link {0}".format(self.request.remote_ip))
@@ -99,6 +100,7 @@ if __name__ == '__main__':
 
     conn = pymongo.MongoClient(host='112.74.207.72', port=27017)
     print(conn.address)
+
     db_auth = conn.admin
     db_auth.authenticate('daemon', 'daemon123')
     # collection = db_auth.ajinomoto_menu

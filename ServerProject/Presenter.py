@@ -22,12 +22,9 @@ def initData(size):
 
     logger.info('all room {0}'.format(len(roomManager.managers)))
 
-
     #客户端的回调 功能添加
     ActionProtocol.initActionsFromC()
 
-    # ActionFromClient.action_dicts[1]=action1
-    # print(ActionFromClient.action_dicts)
 
 
 # 开始 puke
@@ -131,4 +128,4 @@ def joinRoom(user, room1):
 
 
 def parseAction(user_link,message):
-    Utils.parseAction(user_link, message, ActionProtocol.action_dicts_from_c)
+    ActionProtocol.parseAction(user_link, message)
