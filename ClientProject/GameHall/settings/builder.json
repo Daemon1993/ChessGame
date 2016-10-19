@@ -1,5 +1,9 @@
 {
   "excludeScenes": [],
+  "includeAnysdk": false,
+  "includeSdk": [
+    "anysdk"
+  ],
   "orientation": {
     "landscapeLeft": true,
     "landscapeRight": true,
@@ -9,9 +13,5 @@
   "packageName": "org.cocos2d.helloworld",
   "startScene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
   "title": "hello_world",
-  "webOrientation": "auto",
-  "includeSdk": [
-    "anysdk"
-  ],
-  "includeAnysdk": false
+  "webOrientation": "auto"
 }
