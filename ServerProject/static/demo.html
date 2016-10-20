@@ -23,7 +23,7 @@
         document.getElementById('message').innerHTML = event.data;
     };
 
-    setInterval("myInterval()", 1000);//1000为1秒钟
+//    setInterval("myInterval()", 1000);//1000为1秒钟
 
     function myInterval() {
          ws.send('{"code":8}')
@@ -33,7 +33,7 @@
         ws.send("createRoom");
     }
     function getPuke1() {
-        ws.send('{"code":1}');
+        ws.send('{"code":1,"uid":111,"rid":5}');
     }
     function getPuke2() {
         ws.send('{"code":2}');

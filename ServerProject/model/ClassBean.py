@@ -1,4 +1,3 @@
-
 import Utils
 from model import ResponseData
 
@@ -12,6 +11,7 @@ logger = logging.getLogger(__name__)
 每个功能 一个类
 '''
 
+
 # 用户类 里面有roomID
 class __User():
     # # 每个连接的WebSocket
@@ -20,61 +20,62 @@ class __User():
     def __repr__(self):
         return 'userID :{0}'.format(self.userName)
 
-    def __init__(self, userLink, userName):
+    def __init__(self, userLink, userName, uid):
         self.userLink = userLink
         self.userName = userName
         self.roomId = ""
-        self.puke = ""
-        self.userID = ""
-        self.isDown=False
+        self.puke = []
+        self.uid = uid
+        self.isDown = False
 
-
-    #前往某个房间
+    # 前往某个房间
     def go2Room(self, room):
-        user = room.getUserById(self.userLink)
+        user = room.getUserById(self.uid)
         if user is not None:
             return False
         self.roomId = room.tag
-        self.isDown=True
-        room.hasSeats+=1
+        self.isDown = True
+        room.hasSeats += 1
 
         room.addUser(self)
 
-        logger.info('user {0} join room {1}'.format(self.userName,room.tag))
+        logger.info('user {0} join room {1}'.format(self.userName, room.tag))
+
         self.userLink.write_message('欢迎来到房间 {0}'.format(room.tag))
         return True
 
-    #前往座位
-    def getSeat(self,room):
-        if room.hasSeats>=100:
+    # 前往座位
+    def getSeat(self, room):
+        if room.hasSeats >= 100:
             logger.warning('座位已满 不能继续坐下')
             return
-        self.isDown=True
-
-
+        self.isDown = True
 
     # 离开房间
-    def exitRoom(self,room):
-        #房间清除
+    def exitRoom(self, room):
+        # 房间清除
         room.users.remove(self)
 
         self.roomId = ""
-        self.isDown=None
-        self.isDown=False
+        self.isDown = None
+        self.isDown = False
 
-def newUser(userLink, userName):
-    user = __User(userLink, userName)
-    logger.info("上线 " + user.userName )
+
+def newUser(userLink, userName, uid):
+    user = __User(userLink, userName, uid)
+    logger.info("上线 " + user.userName)
     return user
 
 
 # 房间类 里面有User
 class __Room():
-
     def __init__(self, tag):
+        # tag is  rid
+        self.roomSeatCount = 4
         self.tag = tag
         self.users = []
-        self.hasSeats=0
+        self.hasSeats = 0
+        logger.debug("create room {0}".format(tag))
 
     def addUser(self, user):
         self.users.append(user)
@@ -86,31 +87,21 @@ class __Room():
     def getUserSize(self):
         return len(self.users)
 
-    def getUserById(self, userLink):
+    def getUserById(self, uid):
         for user in self.users:
-            if user.userLink == userLink:
+            if user.uid == uid:
                 return user
         return None
 
     # 给用户分发牌
     def showPuke(self):
-        max = 0
-        win_user = None
         pukes = self.getPuke()
-
         for user in self.users:
             if user is None or user.isDown is None:
                 continue
             puke = Utils.getRandomPuke(pukes)
-            user.puke = puke
-            realPuke = int(puke, 16)
-            if realPuke > max:
-                max = realPuke
-                win_user = user
-            logger.debug('showPuke {0} {1}'.format(user.userName, puke))
-            user.userLink.write_message('你的牌 {0}'.format(puke))
-
-        return win_user
+            user.puke.append(puke)
+            user.puke.append(puke)
 
     # 获取扑克牌 每次新的
     def getPuke(self):
@@ -130,25 +121,25 @@ class __Room():
 
     def updateRoom(self):
 
-        user_count = len(self.users)
-        data = ResponseData.RoomData.Data(1, 1, user_count, 4, 5, 10, 123, 100, 0)
-        roomData = ResponseData.RoomData(10, 1, data)
+        seats = []
+        for user in self.users:
+            if user.isDown:
+                self.showPuke()
+                seat=ResponseData.JoinRoom.Seat(user.uid,user.puke)
+                seats.append(seat)
 
-        msg= Utils.parseSendJson(roomData)
+        roomData = ResponseData.JoinRoom(self.tag, 1, 1,seats)
 
-
-        # ddd=json.loads(msg)
-        # print(ddd['data'])
+        msg = Utils.parseSendJson(roomData)
 
         # 便利发送user房间信息
         for user in self.users:
             self.senRoomMsg2User(msg, user)
 
-
-    def senRoomMsg2User(self,json, user):
+    def senRoomMsg2User(self, json, user):
         user.userLink.write_message(json)
 
-#房间加上Tag
+
+# 房间加上Tag
 def newRoom(tag):
     return __Room(tag)
-

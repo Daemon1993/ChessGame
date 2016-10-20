@@ -8,9 +8,7 @@ logger = logging.getLogger(__name__)
 
 #aaaaa
 def getRandomPuke(pukes):
-
     puke=random.choice(pukes)
-
     pukes.remove(puke)
     return puke
 
