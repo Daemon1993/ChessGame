@@ -34,7 +34,6 @@ def parseAction(user_link, message):
             action_dicts_from_c[code_key].parseData(user_link=user_link, jsonObject=msg, code=str(code + 1))
             break
 
-
 # 基类 处理 数据
 class BaseAction:
     def __init__(self):
