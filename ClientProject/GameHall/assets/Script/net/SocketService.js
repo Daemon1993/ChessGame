@@ -10,7 +10,7 @@
 //6.提供注册事件回调
 
 var config = {
-	"url": "huoor.com/main",
+	"url": "huoor.com:8888/main",
 	//协议类型
 	"Protocol":{
 		"code":{
@@ -22,19 +22,31 @@ var config = {
 var ws = null
 var SocketService = {};
 
-SocketService.init = function(config) {
+SocketService.init = function() {
+
+}
+
+//连接服务器
+SocketService.connect = function(){
+	if(ws)return ws;
 	ws = new WebSocket('ws://' + config.url); //连接服务器
-	
-
-
+	ws.onopen = function () {
+        console.log('连接:' + config.url + " 成功!")
+    };
+    ws.onmessage = function (event) {  //服务器返回消息
+    	SocketService.parseData(event.data);
+    };
+    return ws;
 }
 
-SocketService.sendPack = function(){
-	
+SocketService.sendPack = function(data){
+	//TODO
+	ws.send(JSON.stringify(data))
 }
 
-SocketService.packData = function(){
-
+SocketService.parseData = function(data){
+	cc.log(data)
+	return data
 }
 
 

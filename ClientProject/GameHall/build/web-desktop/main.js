@@ -1,5 +1,7 @@
 (function () {
 
+    'use strict';
+
     function boot () {
 
         var settings = window._CCSettings;
@@ -32,9 +34,8 @@
             // Loading splash scene
             var splash = document.getElementById('splash');
             var progressBar = splash.querySelector('.progress-bar span');
-            var currentResCount = cc.loader.getResCount();
             cc.loader.onProgress = function (completedCount, totalCount, item) {
-                var percent = 100 * (completedCount - currentResCount) / (totalCount - currentResCount);
+                var percent = 100 * completedCount / totalCount;
                 if (progressBar) {
                     progressBar.style.width = percent.toFixed(2) + '%';
                 }
@@ -53,17 +54,19 @@
                 cc.view.enableRetina(true);
             }
             //cc.view.setDesignResolutionSize(settings.designWidth, settings.designHeight, cc.ResolutionPolicy.SHOW_ALL);
-            cc.view.enableAutoFullScreen(cc.sys.isMobile && cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU);
         
             if (cc.sys.isBrowser) {
                 setLoadingDisplay();
             }
 
-            if (settings.orientation === 'landscape') {
-                cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
-            }
-            else if (settings.orientation === 'portrait') {
-                cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+            if (cc.sys.isMobile) {
+                if (settings.orientation === 'landscape') {
+                    cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+                }
+                else if (settings.orientation === 'portrait') {
+                    cc.view.setOrientation(cc.macro.ORIENTATION_PORTRAIT);
+                }
+                cc.view.enableAutoFullScreen(cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU);
             }
 
             // init assets
@@ -90,6 +93,7 @@
                             div.style.backgroundImage = '';
                         }
                     }
+                    cc.loader.onProgress = null;
 
                     // play game
                     // cc.game.resume();
@@ -132,10 +136,23 @@
         cc.game.run(option, onStart);
     }
 
-    if (cc.sys.isBrowser) {
-        window.onload = boot;
+    if (window.document) {
+        var splash = document.getElementById('splash');
+        splash.style.display = 'block';
+
+        var cocos2d = document.createElement('script');
+        cocos2d.async = true;
+        cocos2d.src = window._CCSettings.debug ? 'cocos2d-js.js' : 'cocos2d-js-min.js';
+
+        var engineLoaded = function () {
+            document.body.removeChild(cocos2d);
+            cocos2d.removeEventListener('load', engineLoaded, false);
+            boot();
+        };
+        cocos2d.addEventListener('load', engineLoaded, false);
+        document.body.appendChild(cocos2d);
     }
-    else if (cc.sys.isNative) {
+    else if (window.jsb) {
         require('src/settings.js');
         require('src/jsb_polyfill.js');
 
