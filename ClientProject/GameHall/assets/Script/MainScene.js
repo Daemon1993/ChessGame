@@ -19,7 +19,6 @@ cc.Class({
         var ws = new WebSocket("ws://huoor.com:8888/main");
         ws.onopen = function () {
             console.log('连接成功!   ' + "ws://huoor.com:8888/main")
-            // ws.send('{"code":11,"uid":111}')
         };
         ws.onmessage = function (event) {  //服务器返回消息
             console.log(event.data)
@@ -27,9 +26,11 @@ cc.Class({
         this.ws = ws;
     },
     testLogin:function(){
-        this.ws.send('{"code":11,"uid":111}')
+        var pack = {}
+        pack.code = "11"
+        pack.uid = 12
+        this.ws.send(JSON.stringify(pack))
         this.label.string = '正在登陆...';
-        console.log('正在登陆...')
     },
     // called every frame
     update: function (dt) {

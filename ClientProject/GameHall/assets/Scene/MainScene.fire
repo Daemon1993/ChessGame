@@ -589,7 +589,7 @@
     "target": {
       "__id__": 2
     },
-    "component": "app",
+    "component": "MainScene",
     "handler": "testLogin"
   },
   {
