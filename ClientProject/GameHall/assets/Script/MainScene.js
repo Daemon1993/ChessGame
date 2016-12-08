@@ -1,3 +1,5 @@
+var SocketService = require('SocketService')
+
 cc.Class({
     extends: cc.Component,
     properties: {
@@ -16,20 +18,12 @@ cc.Class({
     },
     // use this for initialization
     onLoad: function () {
-        var ws = new WebSocket("ws://huoor.com:8888/main");
-        ws.onopen = function () {
-            console.log('连接成功!   ' + "ws://huoor.com:8888/main")
-            // ws.send('{"code":11,"uid":111}')
-        };
-        ws.onmessage = function (event) {  //服务器返回消息
-            console.log(event.data)
-        };
-        this.ws = ws;
+        this.ws = SocketService.connect();
     },
     testLogin:function(){
-        this.ws.send('{"code":11,"uid":111}')
+        var pack = {}
+        this.ws.send(JSON.stringify(pack))
         this.label.string = '正在登陆...';
-        console.log('正在登陆...')
     },
     // called every frame
     update: function (dt) {
