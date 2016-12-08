@@ -39,6 +39,19 @@ class GetProtocolHanlder(tornado.web.RequestHandler):
         self.write(msg)
 
 
+class GetJsonHanlder(tornado.web.RequestHandler):
+    def get(self):
+        text_file = open("static/data.json", "r",encoding='utf-8')
+        lines = text_file.readlines()
+        msg=''
+        for line in lines:
+            line=line.strip('\n')
+            msg+=line
+        #print(msg)
+        self.write(msg)
+
+        self.set_header("Access-Control-Allow-Origin", "*")
+
 
 
 class ChessGameSocket(tornado.websocket.WebSocketHandler):
@@ -84,13 +97,18 @@ class IndexHandler(tornado.web.RequestHandler):
         self.render("static/demo.html")
 
 
+settings = {'debug': True,
+            'static_path': os.path.join(os.path.dirname(__file__), 'static')}
+
 def initData():
     return tornado.web.Application(
         [
         ('/main', ChessGameSocket),
         ('/getProtocol', GetProtocolHanlder),
+        ('/getDataJson', GetJsonHanlder),
         ("/index", IndexHandler),
-        ],
+        ("/ssss/(.*)", tornado.web.StaticFileHandler,dict(path=settings['static_path'])),
+        ],**settings
     )
 
 
